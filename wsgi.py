@@ -54,7 +54,7 @@ def home():
         <h1>Preview Generator</h1>
         <p>The following endpoints are available:</p>
         <ul>
-            <li>POST to <code>/preview?filename=myfile.pdf</code>. The body should
+            <li>POST to <code>/preview?filename=myfile.pdf&width=150&height=200</code>. The body should
                 contain data</li>
         </ul>
     '''
@@ -63,8 +63,9 @@ def home():
 @app.route('/preview', methods=['POST'])
 def generate():
     name = request.args.get('filename', 'unnamed')
+    width = request.args.get('width', 150)
+    height = request.args.get('height', 200)
     app.logger.info('POST  /preview?filename=%s' % name)
-
     data = request.data
     with tempfile.TemporaryDirectory() as tmpdirname:
       input_path = os.path.join(tmpdirname, name)
@@ -75,8 +76,7 @@ def generate():
       cache_path = os.path.join(tmpdirname, 'cache')
       try:
           manager = PreviewManager(cache_path, create_folder= True)
-          output_path = manager.get_jpeg_preview(input_path)
-
+          output_path = manager.get_jpeg_preview(input_path, width=width, height=height)
           file = open(output_path, 'r+b')
           output = file.read()
           response = make_response(output)
