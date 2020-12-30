@@ -63,8 +63,8 @@ def home():
 @app.route('/preview', methods=['POST'])
 def generate():
     name = request.args.get('filename', 'unnamed')
-    width = request.args.get('width', 150)
-    height = request.args.get('height', 200)
+    width = request.args.get('width', default=150, type=int)
+    height = request.args.get('height', default=200, type=int)
     app.logger.info('POST  /preview?filename=%s' % name)
     data = request.data
     with tempfile.TemporaryDirectory() as tmpdirname:
