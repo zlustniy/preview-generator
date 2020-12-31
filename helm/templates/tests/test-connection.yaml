@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "helm.fullname" . }}-test-connection"
+  labels:
+        {{- include "helm.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  imagePullSecrets:
+        {{- range .Values.global.imagePullSecrets }}
+    - name: {{ . }}
+        {{- end }}
+  containers:
+    - name: wget
+      image: dc2.srvhub.tools/tools/curljq
+      command:
+        - /bin/sh
+        - -c
+        - |
+          echo Waiting for healthy;
+          until [ $(curl -D - -s http://{{ include "helm.fullname" . }}:{{ .Values.service.port }}/health | grep ok) = ok ]
+          do
+            sleep 2;
+          done
+          echo Service is healthy!
+  restartPolicy: Never

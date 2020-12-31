@@ -1,0 +1,12 @@
+department: itf
+env: prod
+
+metrics:
+  enabled: true
+
+ingress:
+  enabled: true
+  hosts:
+    - host: preview-generator.k8s.prod
+      paths:
+        - "/"

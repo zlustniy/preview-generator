@@ -1,0 +1,12 @@
+department: itf
+env: test
+
+metrics:
+  enabled: false
+
+ingress:
+  enabled: true
+  hosts:
+    - host: preview-generator.k8s.test
+      paths:
+        - "/"
