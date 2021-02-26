@@ -1,0 +1,26 @@
+<h1>Preview Generator</h1>
+<p>The following endpoints are available:</p>
+<ul>
+    <li>POST to <code>/preview?filename=myfile.pdf&width=150&height=200&need_crop=0&extension=jpeg</code>.
+        The body should contain data
+        <ul><br>
+            Query params:
+            <li>
+                <b>width (int)</b> - необходимая ширина
+                <br> По умолчанию: 256
+            </li><br>
+            <li>
+                <b>height (int)</b> - необходимая высота
+                <br> По умолчанию: 256
+            </li><br>
+            <li>
+                <b>need_crop (int[0-1])</b> - необходимо подрезать изображение до указанных размеров
+                <br> По умолчанию: 1
+            </li><br>
+            <li>
+                <b>extension (str['jpeg', 'pdf', 'html', 'text'])</b> - возвращаемый файл.
+                <br> По умолчанию: 'jpeg'
+            </li>
+        </ul>
+    </li>
+</ul>

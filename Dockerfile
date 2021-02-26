@@ -19,5 +19,5 @@ RUN pip install \
     flask
 RUN mkdir /api
 WORKDIR /api
-ADD ./wsgi.py /api
+COPY ./api /api
 CMD gunicorn --bind 0.0.0.0:5001 wsgi:app
